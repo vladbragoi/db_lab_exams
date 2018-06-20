@@ -99,14 +99,14 @@ if __name__ == "__main__":
 
     while (input("Vuoi inserire una nuova tupla? [S/N]: ").lower() == "S".lower()):
         print("Inserisci un'autostrada tra queste: ")
-        autostrade = reduce(lambda x, y : x + y ,get_autostrade())
+        autostrade = reduce(lambda x, y : x + y, get_autostrade())
         print(autostrade)
         while autostrada not in autostrade:
             autostrada = input("> ")
 
         print("Inserisci un comune tra questi: ")
 
-        comuni = reduce(lambda x, y : x + y ,get_comuni())
+        comuni = reduce(lambda x, y : x + y, get_comuni())
         print(comuni)
         while comune not in comuni:
             comune = input("> ")
