@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pagina insegnamenti</title>
+  <style type="text/css">
+  table, thead, tbody {
+  		border: 1px solid black;
+  		border-collapse: collapse;
+  		padding: 1px;
+  		width: auto;
+  }
+  tr.even {
+  		background-color: aliceblue;
+  }
+  tr.odd {
+  		background-color: inherit;
+  }
+  td,th  {
+  		border: 1px solid gray;
+  		margin: 0px;
+  		padding: 2px;
+  }
+  td.numero {
+  		text-align: right;
+  }
+  th {
+  		background-color: highlight;
+  }
+  </style>
+</head>
+<body>
+<h1>Facoltà di {{ facolta.nome }}</h1>
+<h2>Corso di studi {{corsoStudi.nome }}</h2>
+<h3>Durata {{corsoStudi.durataAnni}} anni</h3>
+#if corsoStudi.ultimoStato
+<p>L'ultima variazione di stato del corso di studi è stata nell'anno accademico {{ corsoStudi.annoAccademicoUltimoStato }}. 
+Da tale anno il corso di studi è <strong>{{corsoStudi.ultimoStato}}</strong>.</p>
+#endif
+<p>Elenco degli insegnamenti erogati nell'anno accademico <strong>{{ aa }}</strong>.</p>
+#if not insErogati
+<p><strong>Non ci sono insegnamenti nell'anno accademico <strong>{{ aa }}</strong>.</strong></p>
+#else
+<table>
+	<thead>
+		<tr>
+			<th>N.</th><th>Insegnamento</th><th>Discr.</th><th>Modulo</th><th>Nome modulo</th><th>Discr. modulo</th> <th>nome unità</th> <th>Crediti</th><th>Docente</th>
+		</tr>
+	</thead>
+	<tfoot><tr><td colspan="9">Fine tabella</td></tr></tfoot>
+	<tbody>
+		{%- macro url(idC) -%}
+		/insegnamento?id={{idC}}&idCS={{idCorsoStudi}}&aa={{aa}}
+		{%- endmacro %}
+		{#spazio memoria per creare la variabile numeroIns che vive al di fuori del ciclo for#}
+		#set ns = namespace(numeroIns=1)
+		#for ins in insErogati
+		<tr class="{{ loop.cycle('odd', 'even') }}">
+			<td class="numero">
+				{%- if ins.modulo == 0: -%}
+					{{ ns.numeroIns }}
+					{%- set ns.numeroIns = ns.numeroIns+1 -%}
+				{%- endif -%}
+			</td>
+			<td><a href="{{ url(ins.id) }}">{{ins.nome}}</a></td>
+			<td>{{ins.discr}}</td>
+			<td class="numero">{{ins.modulo}}</td>
+			<td>{{ins.nomeModulo}}</td>
+			<td>{{ins.discriminanteModulo}}</td>
+			<td>{{ins.nomeUnita}}</td>
+			<td class="numero">{{ins.crediti}}</td>
+			<td>{{ins.docente|replace('\n','<br>'|safe)}}</td>
+		</tr>
+		#endfor
+	</tbody>
+</table>
+#endif 
+<p><a href="/home">Torna alla pagina principale</a></p>
+</body>
+</html>

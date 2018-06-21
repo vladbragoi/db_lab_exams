@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pagina insegnamento</title>
+</head>
+<body>
+
+#if not ins
+<p><strong>Non ci sono insegnamenti nell'anno accademico <strong>{{ aa }}</strong>.</strong></p>
+#else
+	<h1>Insegnamento {{ ins.nomeins }}</h1>
+	<h3>Coordinatore: {{ ins.docente }}</h3>
+	<h4>Dettagli del corso:</h4>
+	<p>Facoltà: {{ ins.facoltà }}</p>
+	<p>Corso studi: {{ ins.corsostudi }}</p>
+	<p>Codice insegnamento: {{ ins.codiceins }}</p>
+	<p>Discriminante: {{ ins.discriminante }}</p>
+	<p>Numero crediti: {{ ins.crediti }}</p>
+	<p>Anni di erogazione: {{ ins.annierogazione }}</p>
+#endif
+{%- macro url() -%}
+/insegnamenti?idCorsoStudi={{idCorsoStudi}}&aa={{aa}}
+{%- endmacro %}
+<p><a href="{{url()}}">Torna alla pagina precedente</a></p>
+<p><a href="/home">Torna alla pagina principale</a></p>
+</body>
+</html>

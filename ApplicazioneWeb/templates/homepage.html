@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pagina principale</title>
+  <style type="text/css">
+  form {
+  	border: 1px solid black;
+  	padding: 2px;
+  	width: auto;
+  }
+  </style>
+</head>
+<body>
+<h1>Facoltà di {{ facolta.nome }}</h1>
+<p>Selezionare il corso di studi e l'anno accademico di cui si vogliono vedere gli insegnamenti erogati.</p>
+<form action="/insegnamenti" autocomplete="on" method="post">
+	<label>Corso di studi:</label>
+	<select name="idCorsoStudi">
+		{% for cs in corsiStudi %}
+		<option value="{{ cs.id }}">{{ cs.nome|truncate(120, True) }}</option>
+		{% endfor %}
+	</select><br>
+	<label>Anno accademico:</label>
+	<select name="aa">
+		{% for anno in aa %}
+		<option value="{{ anno }}" {% if loop.first %} selected="selected" {% endif %}>{{ anno }}</option>
+		{% endfor %}
+	</select><br>
+<input type="submit" value="Invia">
+</form>
+</body>
+</html>
