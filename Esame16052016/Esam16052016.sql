@@ -2,29 +2,27 @@
 drop table if exists auto;
 create table auto(
 	targa char(7) primary key check (targa SIMILAR TO '[A-Z]{2}[0-9]{3}[A-Z]{2}'),
-	marca varchar(20) not null default 'Fiat',
-	modello varchar(30) not null default 'Panda',
+	marca varchar(20) not null,
+	modello varchar(30) not null,
 	posti integer not null check (posti > 0) default 5,
-	cilindrata integer not null check (cilindrata > 0) default 1200
+	cilindrata integer not null check(cilindrata > 0)
 );
 
 drop table if exists cliente;
 create table cliente(
 	nPatente char(10) primary key,
-	cognome varchar(30) not null default 'Rossi',
-	nome varchar(30) not null default 'Mario',
-	paeseProvenienza varchar(30) not null default 'Italia',
-	nInfrazioni integer default 0 check (nInfrazione >= 0)
+	cognome varchar not null,
+	nome varchar not null,
+	paeseProvenienza varchar not null default 'Italia',
+	nInfrazioni integer default 0 check(nInfrazione >= 0)
 );
 
-
 drop table if exists noleggio;
-
 create table noleggio(
-	targa char(7) references auto(targa),
-	cliente char(10) references cliente(nPatente),
+	targa char(7) references auto,
+	cliente char(10) references cliente,
 	inizio timestamp with time zone default current_timestamp,
-	fine timestamp with time zone check(fine < inizio or fine is null),
+	fine timestamp with time zone check(fine > inizio or fine is null),
 	primary key (targa, cliente, inizio)
 );
 
