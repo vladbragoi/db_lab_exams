@@ -14,7 +14,7 @@ create table cliente(
 	cognome varchar not null,
 	nome varchar not null,
 	paeseProvenienza varchar not null default 'Italia',
-	nInfrazioni integer default 0 check(nInfrazione >= 0)
+	nInfrazioni integer default 0 check(nInfrazioni >= 0)
 );
 
 drop table if exists noleggio;
