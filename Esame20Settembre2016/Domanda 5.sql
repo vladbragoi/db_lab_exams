@@ -1,5 +1,0 @@
--- Non ci sono condizioni nel where perchè la where contiene un confronto tra un valore e una subquerry
---(bisogna vedere la subquerry che però non ha nè join nè where)
--- mentre nelle varie clausole dei join ci sono già gli indici sulle chiavi primarie sulle quali si va a fare il join
--- inoltre nella view non ci sono where e i join sono fatti su chiavi primarie sui quali ci sono già indici
--- Risposta non vanno creati indici.
